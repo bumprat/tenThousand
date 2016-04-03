@@ -20,5 +20,15 @@
     "angular-route": "^1.5.3",
     "bootstrap": "^3.3.6",
     "jquery": "^2.2.2"
+  },
+  "overrides": {
+    "bootstrap": {
+      "main": [
+        "dist/css/bootstrap.css",
+        "dist/css/bootstrap-theme.css",
+        "dist/js/bootstrap.js"
+      ]
+    }
   }
+
 }
