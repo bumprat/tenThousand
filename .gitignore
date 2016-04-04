@@ -8,3 +8,5 @@ templates/
 src.html
 gulpfile.js
 bower.json
+package.json
+.gitignore
