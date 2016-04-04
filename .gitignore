@@ -4,6 +4,7 @@ node_modules/
 bower_components/
 css/
 js/
+templates/
 src.html
 gulpfile.js
 bower.json
