@@ -21,10 +21,11 @@
     <script src="./assets/application.js"></script>
   </head>
   <body ng-app='app'>
-    <div class="container">
-    <div class='alert alert-danger' ng-show="unsupportedBrowser">
-      由于微信浏览器有安全限制，请在右上角选择用其他浏览器打开。
-    </div>
+    <div ng-show="unsupportedBrowser" class="popover popover-unsupportedBrowswer fade bottom in" role="tooltip tooltip-alert" id="popover853847" style="top: 0px;left:auto; right: 0px; display: block;position: absolute;">
+      <div class="arrow" style="left:auto;right: 0.15em;"></div>
+      <div class="popover-content">
+        这个浏览器有安全限制，请使用其他浏览器打开
+      </div>
     </div>
 
     <nav class="navbar navbar-default navbar-fixed-top">
