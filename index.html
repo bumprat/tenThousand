@@ -21,6 +21,12 @@
     <script src="./assets/application.js"></script>
   </head>
   <body ng-app='app'>
+    <div class="container">
+    <div class='alert alert-danger' ng-show="weixinBrowser">
+      由于微信浏览器有安全限制，请在右上角选择用其他浏览器打开。
+    </div>
+    </div>
+
     <nav class="navbar navbar-default navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
