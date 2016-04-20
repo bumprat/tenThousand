@@ -19,7 +19,7 @@
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-    <script src="./assets/application.js"></script>
+    <script src="./assets/ie6support.js"></script>
   </head>
   <body ng-class="{'noscroll': $root.themeload === false}"> 
     <!--<div ng-show="false && unsupportedBrowser" class="popover popover-unsupportedBrowswer fade bottom in" role="tooltip tooltip-alert" id="popover853847" style="top: 0px;left:auto; right: 0px; display: none;position: absolute;">
@@ -51,6 +51,9 @@
             <li ng-class="{active:location.path()==='/about'}" ><a href="#/about">
             <span class="glyphicon glyphicon-eye-open"></span> 关于
             </a></li>
+            <li ng-show="$root.dt==='YZ213'" ng-class="{active:location.path()==='/admin'}" ><a href="#/admin">
+            <span class="glyphicon glyphicon-eye-open"></span> 管理员
+            </a></li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>
@@ -61,6 +64,80 @@
 
   </body>
     <div class="splash-screen" ng-hide=" $root.themeload">
-      正在加载主题，请稍候...
     </div>
+  <script type="text/javascript">
+    var xmlhttp;
+    function httpget(url)
+    {
+    xmlhttp=null;
+    if (window.XMLHttpRequest)
+      {// code for all new browsers
+      xmlhttp=new XMLHttpRequest();
+      }
+    else if (window.ActiveXObject)
+      {// code for IE5 and IE6
+      xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+      }
+    if (xmlhttp!=null)
+      {
+      xmlhttp.onreadystatechange=state_Change;
+      xmlhttp.open("GET",url,true);
+      xmlhttp.send(null);
+      }
+    else
+      {
+      alert("Your browser does not support XMLHTTP.");
+      }
+    }
+
+    function state_Change()
+    {
+    if (xmlhttp.readyState==4)
+      {// 4 = "loaded"
+      if (xmlhttp.status==200)
+        {// 200 = OK
+        // ...our code here...
+          getthen(xmlhttp.responseText);
+        }
+      else
+        {
+        alert("Problem retrieving XML data");
+        }
+      }
+    }
+  </script>
+  <script>
+    function getthen(text) {
+      /*       */
+      // Decrypt 
+      try {
+        var q = window.location.href.split('#/')[1];
+        if(q.indexOf('!')>=0){
+          var plaintext  = CryptoJS.AES.decrypt(q.split('!')[0], q.split('!')[1].split('~')[0]).toString(CryptoJS.enc.Utf8);
+          if(plaintext.indexOf('|')>=0){            
+            var deviceserial = plaintext.split('|')[0];
+            if(deviceserial!==q.split('~')[1]) { throw new Error();}
+            var deviceType = plaintext.split('|')[1];
+            var uploadDay = plaintext.split('|')[2];
+            var plaintext  = CryptoJS.AES.decrypt(text, uploadDay).toString(CryptoJS.enc.Utf8);
+            window.eval(plaintext);
+            window.ds = deviceserial;
+            window.dt = deviceType;
+          }
+        }else{
+          var plaintext = CryptoJS.AES.decrypt(text, q).toString(CryptoJS.enc.Utf8);
+          window.eval(plaintext);
+          window.dt = 'YZ213';
+        }
+      } catch(e) {
+
+      } finally {
+        if(typeof angular === 'undefined') {
+          window.location.href = 'http://www.sina.com.cn/thispagedoesnotexist';
+        }
+      }
+    }
+    httpget('./assets/appencrypted');
+
+  </script>
 </html>
