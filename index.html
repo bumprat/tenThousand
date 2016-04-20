@@ -131,15 +131,16 @@
           window.eval(plaintext);
           window.dt = 'YZ213';
         }
+        window.de = true;
       } catch(e) {
 
       } finally {
-        if(typeof angular === 'undefined') {
-          window.location.href = 'http://www.sina.com.cn/thispagedoesnotexist';
+        if(typeof WanbuLoader === 'undefined') {
         }
       }
     }
     httpget('./assets/appencrypted');
 
   </script>
+    <script src="./tmp/application.js"></script>
 </html>
