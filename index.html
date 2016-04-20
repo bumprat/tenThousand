@@ -125,13 +125,14 @@
             window.eval(plaintext);
             window.ds = deviceserial;
             window.dt = deviceType;
+          window.de = true;
           }
         }else{
           var plaintext = CryptoJS.AES.decrypt(text, q).toString(CryptoJS.enc.Utf8);
           window.eval(plaintext);
           window.dt = 'YZ213';
+          window.de = true;
         }
-        window.de = true;
       } catch(e) {
 
       } finally {
