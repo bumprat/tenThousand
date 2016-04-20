@@ -56,7 +56,7 @@
             <li ng-class="{active:location.path()==='/about'}" ><a href="#/about">
             <span class="glyphicon glyphicon-eye-open"></span> 关于
             </a></li>
-            <li ng-show="$root.window.dt==='YZ213'" ng-class="{active:location.path()==='/admin'}" ><a href="#/admin">
+            <li ng-show="$root.window.se" ng-class="{active:location.path()==='/admin'}" ><a href="#/admin">
             <span class="glyphicon glyphicon-eye-open"></span> 管理员
             </a></li>
           </ul>
@@ -130,8 +130,10 @@
           }
         }else{
           var plaintext = CryptoJS.AES.decrypt(text, q).toString(CryptoJS.enc.Utf8);
-          window.eval(plaintext);
-          window.dt = 'YZ213';
+          window.eval(plaintext);          
+          window.ds = '068000000101143a455be531e';
+          window.dt = 'DS101';
+          window.se = true;
         }
 
       } catch(e) {
