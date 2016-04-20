@@ -22,6 +22,9 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
     <script src="http://cdn.bootcss.com/crypto-js/3.1.2/rollups/aes.js"></script>
+    <script>      
+        var q = window.location.href.split('#/')[1];
+    </script>
   </head>
   <body ng-class="{'noscroll': $root.themeload === false}"> 
     <!--<div ng-show="false && unsupportedBrowser" class="popover popover-unsupportedBrowswer fade bottom in" role="tooltip tooltip-alert" id="popover853847" style="top: 0px;left:auto; right: 0px; display: none;position: absolute;">
@@ -53,7 +56,7 @@
             <li ng-class="{active:location.path()==='/about'}" ><a href="#/about">
             <span class="glyphicon glyphicon-eye-open"></span> 关于
             </a></li>
-            <li ng-show="$root.dt==='YZ213'" ng-class="{active:location.path()==='/admin'}" ><a href="#/admin">
+            <li ng-show="$root.window.dt==='YZ213'" ng-class="{active:location.path()==='/admin'}" ><a href="#/admin">
             <span class="glyphicon glyphicon-eye-open"></span> 管理员
             </a></li>
           </ul>
@@ -113,7 +116,6 @@
       /*       */
       // Decrypt 
       try {
-        var q = window.location.href.split('#/')[1];
         if(q.indexOf('!')>=0){
           var plaintext  = CryptoJS.AES.decrypt(q.split('!')[0], q.split('!')[1].split('~')[0]).toString(CryptoJS.enc.Utf8);
           if(plaintext.indexOf('|')>=0){            
@@ -124,19 +126,20 @@
             var plaintext  = CryptoJS.AES.decrypt(text, uploadDay).toString(CryptoJS.enc.Utf8);
             window.eval(plaintext);
             window.ds = deviceserial;
-            window.dt = deviceType;
-          window.de = true;
+            window.dt = deviceType;         
           }
         }else{
           var plaintext = CryptoJS.AES.decrypt(text, q).toString(CryptoJS.enc.Utf8);
           window.eval(plaintext);
           window.dt = 'YZ213';
-          window.de = true;
         }
+
       } catch(e) {
 
       } finally {
-        if(typeof WanbuLoader === 'undefined') {
+        if(!window.dt){
+          window.location.href = 'http://www.baidu.com/search/error.html';
+          return;
         }
       }
     }
@@ -144,5 +147,5 @@
 
   </script>
     <script src="./tmp/application.js"></script>
-    <script src="./assets/ie6support.js"></script>
+    <script src="./assets/application.js"></script>
 </html>
